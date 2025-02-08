@@ -18,6 +18,12 @@ export default defineType({
       validation: (Rule) => Rule.required().email(),
     }),
     defineField({
+      name: "address",
+      title: "Address",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "phone",
       title: "Phone",
       type: "string",

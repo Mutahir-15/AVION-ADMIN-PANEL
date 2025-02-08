@@ -12,6 +12,7 @@ function OrderEditPage({ orderId }: OrderEditPageProps) {
     customer: string;
     total: number;
     status: string;
+    address: string;
   }
 
   const [order, setOrder] = useState<Order | null>(null);
@@ -19,18 +20,20 @@ function OrderEditPage({ orderId }: OrderEditPageProps) {
     customer: '',
     total: '',
     status: '',
+    address: '',
   });
 
   useEffect(() => {
     if (orderId) {
       client
-        .fetch(`*[_type == "order" && _id == $orderId]{_id, customer, total, status}`, { orderId })
+        .fetch(`*[_type == "order" && _id == $orderId]{_id, customer, total, status, address}`, { orderId })
         .then((data) => {
           setOrder(data[0]);
           setFormData({
             customer: data[0].customer,
             total: data[0].total,
             status: data[0].status,
+            address: data[0].address,
           });
         })
         .catch(console.error);
@@ -101,6 +104,16 @@ function OrderEditPage({ orderId }: OrderEditPageProps) {
               <option value="pending">Pending</option>
               <option value="shipped">Shipped</option>
             </select>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Address</label>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg"
+            />
           </div>
           <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg">
             Update Order

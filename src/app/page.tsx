@@ -4,8 +4,9 @@ import DashboardPage from "@/components/DashboardPage";
 import HomePage from "@/components/HomePage";
 import OrdersPage from "@/components/OrdersPage";
 import { FaHome, FaTachometerAlt, FaClipboardList } from 'react-icons/fa';
+import withAuth from '@/components/Auth';
 
-export default function Home() {
+function Home() {
   const [activePage, setActivePage] = useState('home');
 
   return (
@@ -46,3 +47,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuth(Home);

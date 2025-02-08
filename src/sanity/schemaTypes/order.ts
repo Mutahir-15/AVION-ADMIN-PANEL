@@ -3,11 +3,7 @@ export default {
     title: 'Order',
     type: 'document',
     fields: [
-      {
-        name: '_id',
-        title: 'Id',
-        type: 'number',
-      },
+      
       {
         name: 'customer',
         title: 'Customer',
@@ -17,6 +13,11 @@ export default {
         name: 'total',
         title: 'Total',
         type: 'number',
+      },
+      {
+        name: 'address',
+        title: 'Address',
+        type: 'string',
       },
       {
         name: 'status',

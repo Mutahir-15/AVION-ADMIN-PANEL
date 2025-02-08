@@ -11,6 +11,7 @@ function OrdersPage() {
     customer: string;
     total: number;
     status: string;
+    address: string;
   }
 
   useEffect(() => {
@@ -19,7 +20,8 @@ function OrdersPage() {
           _id,
           customer,
           total,
-          status
+          status,
+          address
         }`
       )
       .then((data) => setOrders(data))
@@ -41,6 +43,7 @@ function OrdersPage() {
                 <th className="py-2 px-4 border-b">Customer</th>
                 <th className="py-2 px-4 border-b">Total</th>
                 <th className="py-2 px-4 border-b">Status</th>
+                <th className="py-2 px-4 border-b">Address</th>
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
             </thead>
@@ -51,6 +54,7 @@ function OrdersPage() {
                   <td className="py-2 px-4 border-b">{order.customer}</td>
                   <td className="py-2 px-4 border-b">${order.total}</td>
                   <td className="py-2 px-4 border-b">{order.status}</td>
+                  <td className="py-2 px-4 border-b">{order.address}</td>
                   <td className="py-2 px-4 border-b">
                     <Link href={`/orders/${order._id}`}>
                       <span className="text-blue-500 hover:underline cursor-pointer">Edit</span>
