@@ -8,23 +8,7 @@ function Header() {
       <section className="max-w-[1440px] mx-auto py-4 px-6 flex justify-between items-center">
         <h1 className="text-3xl font-bold text-white">AVION Admin Dashboard</h1>
         <nav className="flex items-center">
-          <ul className="flex gap-8 text-lg text-white">
-            <li>
-              <Link href="/">
-                <span className="hover:text-gray-400 cursor-pointer">Home</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/orders">
-                <span className="hover:text-gray-400 cursor-pointer">Orders</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/dashboard">
-                <span className="hover:text-gray-400 cursor-pointer">Dashboard</span>
-              </Link>
-            </li>
-          </ul>
+          
           <div className="relative ml-8">
             <button className="flex items-center text-white focus:outline-none">
               <FaUserCircle className="text-3xl" />
