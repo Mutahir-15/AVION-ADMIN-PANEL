@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import DashboardPage from "@/components/DashboardPage";
 import HomePage from "@/components/HomePage";
-import { FaHome, FaTachometerAlt } from 'react-icons/fa';
+import { FaHome, FaTachometerAlt, FaClipboardList } from 'react-icons/fa';
+import OrdersPage from '@/components/OrdersPage';
 
 export default function Home() {
   const [activePage, setActivePage] = useState('home');
@@ -22,6 +23,13 @@ export default function Home() {
             Home
           </button>
           <button
+            className={`w-full text-left px-4 py-2 mb-2 rounded ${activePage === 'orders' ? 'bg-blue-500' : 'bg-gray-700'}`}
+            onClick={() => setActivePage('orders')}
+          >
+            <FaClipboardList className="inline-block mr-2" />
+            Orders
+          </button>
+          <button
             className={`w-full text-left px-4 py-2 rounded ${activePage === 'dashboard' ? 'bg-blue-500' : 'bg-gray-700'}`}
             onClick={() => setActivePage('dashboard')}
           >
@@ -32,6 +40,7 @@ export default function Home() {
       </aside>
       <main className="flex-1 p-6">
         {activePage === 'home' && <HomePage />}
+        {activePage === 'orders' && <OrdersPage />}
         {activePage === 'dashboard' && <DashboardPage />}
       </main>
     </div>
