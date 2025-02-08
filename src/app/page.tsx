@@ -2,15 +2,15 @@
 import React, { useState } from 'react';
 import DashboardPage from "@/components/DashboardPage";
 import HomePage from "@/components/HomePage";
+import OrdersPage from "@/components/OrdersPage";
 import { FaHome, FaTachometerAlt, FaClipboardList } from 'react-icons/fa';
-import OrdersPage from '@/components/OrdersPage';
 
 export default function Home() {
   const [activePage, setActivePage] = useState('home');
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-64 bg-gray-800 text-white flex flex-col">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+      <aside className="w-full md:w-64 bg-gray-800 text-white flex flex-col">
         <div className="p-4 text-center text-2xl font-bold border-b border-gray-700">
           Admin Panel
         </div>
