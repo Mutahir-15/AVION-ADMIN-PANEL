@@ -1,20 +1,22 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { parseCookies, setCookie } from 'nookies';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import DashboardPage from "@/components/DashboardPage";
 import HomePage from "@/components/HomePage";
 import OrdersPage from "@/components/OrdersPage";
-import { FaHome, FaTachometerAlt, FaClipboardList } from 'react-icons/fa';
+import { FaHome, FaTachometerAlt, FaClipboardList, FaSignOutAlt } from 'react-icons/fa';
 import Auth from '@/components/Auth';
 
 export default function AdminPanel() {
   const [activePage, setActivePage] = useState('home');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = () => {
       const cookies = parseCookies();
       setIsAuthenticated(!!cookies.isAuthenticated);
+      setIsLoading(false);
     };
     checkAuth();
   }, []);
@@ -28,6 +30,22 @@ export default function AdminPanel() {
     });
     setIsAuthenticated(true);
   };
+
+  const handleLogout = () => {
+    destroyCookie(null, 'isAuthenticated', {
+      path: '/',
+    });
+    setIsAuthenticated(false);
+    window.location.reload(); // Force clear state
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="animate-pulse text-gray-600">Checking authentication...</div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return <Auth onLogin={handleLogin} />;
@@ -68,6 +86,15 @@ export default function AdminPanel() {
             Dashboard
           </button>
         </nav>
+        <div className="mt-auto p-4 border-t border-gray-700">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center px-4 py-2 text-red-400 hover:bg-gray-700 rounded"
+          >
+            <FaSignOutAlt className="mr-2" />
+            Logout
+          </button>
+        </div>
       </aside>
       <main className="flex-1 p-6">
         {activePage === 'home' && <HomePage />}
