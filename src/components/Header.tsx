@@ -6,7 +6,7 @@ function Header() {
   return (
     <header className="bg-gray-800">
       <section className="max-w-[1440px] mx-auto py-4 px-6 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-white">AVION Admin Dashboard</h1>
+        <h1 className="text-xl lg:text-3xl font-bold text-white">AVION Admin Dashboard</h1>
         <nav className="flex items-center">
           
           <div className="relative ml-8">

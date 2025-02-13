@@ -1,13 +1,37 @@
-'use client'
-import React, { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
+import { parseCookies, setCookie } from 'nookies';
 import DashboardPage from "@/components/DashboardPage";
 import HomePage from "@/components/HomePage";
 import OrdersPage from "@/components/OrdersPage";
 import { FaHome, FaTachometerAlt, FaClipboardList } from 'react-icons/fa';
-import withAuth from '@/components/Auth';
+import Auth from '@/components/Auth';
 
-function Home() {
+export default function AdminPanel() {
   const [activePage, setActivePage] = useState('home');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const cookies = parseCookies();
+      setIsAuthenticated(!!cookies.isAuthenticated);
+    };
+    checkAuth();
+  }, []);
+
+  const handleLogin = () => {
+    setCookie(null, 'isAuthenticated', 'true', {
+      maxAge: 86400, // 1 day
+      path: '/',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict'
+    });
+    setIsAuthenticated(true);
+  };
+
+  if (!isAuthenticated) {
+    return <Auth onLogin={handleLogin} />;
+  }
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
@@ -17,21 +41,27 @@ function Home() {
         </div>
         <nav className="flex-1 p-4">
           <button
-            className={`w-full text-left px-4 py-2 mb-2 rounded ${activePage === 'home' ? 'bg-blue-500' : 'bg-gray-700'}`}
+            className={`w-full text-left px-4 py-2 mb-2 rounded transition-colors ${
+              activePage === 'home' ? 'bg-blue-500' : 'bg-gray-700 hover:bg-gray-600'
+            }`}
             onClick={() => setActivePage('home')}
           >
             <FaHome className="inline-block mr-2" />
             Home
           </button>
           <button
-            className={`w-full text-left px-4 py-2 mb-2 rounded ${activePage === 'orders' ? 'bg-blue-500' : 'bg-gray-700'}`}
+            className={`w-full text-left px-4 py-2 mb-2 rounded transition-colors ${
+              activePage === 'orders' ? 'bg-blue-500' : 'bg-gray-700 hover:bg-gray-600'
+            }`}
             onClick={() => setActivePage('orders')}
           >
             <FaClipboardList className="inline-block mr-2" />
             Orders
           </button>
           <button
-            className={`w-full text-left px-4 py-2 rounded ${activePage === 'dashboard' ? 'bg-blue-500' : 'bg-gray-700'}`}
+            className={`w-full text-left px-4 py-2 rounded transition-colors ${
+              activePage === 'dashboard' ? 'bg-blue-500' : 'bg-gray-700 hover:bg-gray-600'
+            }`}
             onClick={() => setActivePage('dashboard')}
           >
             <FaTachometerAlt className="inline-block mr-2" />
@@ -47,5 +77,3 @@ function Home() {
     </div>
   );
 }
-
-export default withAuth(Home);
